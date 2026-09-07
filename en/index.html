@@ -26,13 +26,14 @@
             })();
         </script>
     
-    <link rel="preload" as="style" href="/build/assets/app-DpTP_F07.css" /><link rel="preload" as="style" href="/build/assets/app-OPXdkuVA.css" /><link rel="modulepreload" as="script" href="/build/assets/app-BVlwQc2V.js" /><link rel="stylesheet" href="/build/assets/app-DpTP_F07.css" /><link rel="stylesheet" href="/build/assets/app-OPXdkuVA.css" /><script type="module" src="/build/assets/app-BVlwQc2V.js"></script></head>
+    <link rel="preload" as="style" href="/build/assets/app-BG0Nie33.css" /><link rel="preload" as="style" href="/build/assets/app-OPXdkuVA.css" /><link rel="modulepreload" as="script" href="/build/assets/app-BVlwQc2V.js" /><link rel="stylesheet" href="/build/assets/app-BG0Nie33.css" /><link rel="stylesheet" href="/build/assets/app-OPXdkuVA.css" /><script type="module" src="/build/assets/app-BVlwQc2V.js"></script></head>
 <body class="min-h-screen flex flex-col font-sans">
 
 <header class="fixed top-0 inset-x-0 z-50 bg-night/85 backdrop-blur border-b border-gold/15"
         x-data="{ open: false }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between h-16">
-        <a href="/en" class="font-display text-xl tracking-[0.2em] gold-gradient-text font-semibold uppercase">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between gap-3 h-16">
+        <a href="/en"
+           class="font-display text-sm min-[420px]:text-base sm:text-lg lg:text-xl tracking-[0.05em] sm:tracking-[0.15em] lg:tracking-[0.2em] gold-gradient-text font-semibold uppercase whitespace-nowrap truncate min-w-0">
             VIP Transfer Antalya
         </a>
 
@@ -45,7 +46,7 @@
             <a href="/en/contact" class="hover:text-gold transition ">Contact</a>
         </nav>
 
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2 sm:gap-3 shrink-0">
             <div x-data="{ open: false }" class="relative">
     <button @click="open = !open" @click.outside="open = false"
             class="flex items-center gap-1 text-sm uppercase tracking-wide text-muted hover:text-gold transition px-2 py-1">
@@ -72,7 +73,10 @@
             </a>
             </div>
 </div>
-            <a href="/en#booking" class="hidden sm:inline-flex btn-gold !py-2 !px-4 text-sm">Book Now</a>
+            
+            <div class="hidden md:block">
+                <a href="/en#booking" class="btn-gold !py-2 !px-4 text-sm">Book Now</a>
+            </div>
 
             <button class="lg:hidden text-cream p-2" @click="open = !open" aria-label="Menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
