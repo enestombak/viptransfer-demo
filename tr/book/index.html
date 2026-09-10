@@ -11,11 +11,30 @@
             <link rel="alternate" hreflang="ru" href="/ru/book">
             <link rel="alternate" hreflang="de" href="/de/book">
         <link rel="alternate" hreflang="x-default" href="/en">
+    <link rel="canonical" href="/tr/book">
+
+    
+        <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VIP Transfer Antalya">
+    <meta property="og:title" content="Rezervasyon | VIP Transfer Antalya">
+    <meta property="og:description" content="Antalya Havalimanı VIP transfer. Belek, Side, Kemer, Alanya için sabit fiyatlı lüks Mercedes Vito &amp;amp; Sprinter transfer hizmeti. Online rezervasyon.">
+    <meta property="og:url" content="/tr/book">
+    <meta property="og:image" content="/images/og-image.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:locale" content="tr_TR">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rezervasyon | VIP Transfer Antalya">
+    <meta name="twitter:description" content="Antalya Havalimanı VIP transfer. Belek, Side, Kemer, Alanya için sabit fiyatlı lüks Mercedes Vito &amp;amp; Sprinter transfer hizmeti. Online rezervasyon.">
+    <meta name="twitter:image" content="/images/og-image.jpg">
 
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2218%22%20fill%3D%22%230a0a0a%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2268%22%20font-size%3D%2252%22%20text-anchor%3D%22middle%22%20fill%3D%22%23c9a24b%22%20font-family%3D%22Georgia%22%3EV%3C%2Ftext%3E%3C%2Fsvg%3E">
 
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"TaxiService","name":"VIP Transfer Antalya","description":"Antalya Havalimanı VIP transfer. Belek, Side, Kemer, Alanya için sabit fiyatlı lüks Mercedes Vito & Sprinter transfer hizmeti. Online rezervasyon.","url":"/tr","image":"/images/fleet/hero-vclass.png","telephone":"+90 500 000 00 00","email":"info@viptransfer.local","priceRange":"€€","currenciesAccepted":"EUR, TRY","paymentAccepted":"Cash, Credit Card","address":{"@type":"PostalAddress","addressLocality":"Antalya","addressCountry":"TR","streetAddress":"Antalya, Türkiye"},"areaServed":{"@type":"City","name":"Antalya"},"provider":{"@type":"Organization","name":"VIP Transfer Antalya"}}</script>
+
     
-    <link rel="preload" as="style" href="/build/assets/app-DtWZENDH.css" /><link rel="preload" as="style" href="/build/assets/app-OPXdkuVA.css" /><link rel="modulepreload" as="script" href="/build/assets/app-BVlwQc2V.js" /><link rel="stylesheet" href="/build/assets/app-DtWZENDH.css" /><link rel="stylesheet" href="/build/assets/app-OPXdkuVA.css" /><script type="module" src="/build/assets/app-BVlwQc2V.js"></script><script id="browser-logger-active">
+    
+    <link rel="preload" as="style" href="/build/assets/app-TH0n6G-e.css" /><link rel="preload" as="style" href="/build/assets/app-OPXdkuVA.css" /><link rel="modulepreload" as="script" href="/build/assets/app-BVlwQc2V.js" /><link rel="stylesheet" href="/build/assets/app-TH0n6G-e.css" /><link rel="stylesheet" href="/build/assets/app-OPXdkuVA.css" /><script type="module" src="/build/assets/app-BVlwQc2V.js"></script><script id="browser-logger-active">
 (function() {
     const ENDPOINT = '/_boost/browser-logs';
     const logQueue = [];
@@ -318,14 +337,30 @@
 
 <main class="flex-1">
         <section class="max-w-6xl mx-auto px-4 sm:px-6 py-12"
-             x-data="{ vehicleId: 1, tryRate: 57.41, vehicles: JSON.parse('[{\u0022id\u0022:1,\u0022name\u0022:\u0022Mercedes Vito VIP\u0022,\u0022pax\u0022:6,\u0022price\u0022:40},{\u0022id\u0022:2,\u0022name\u0022:\u0022Mercedes Sprinter VIP\u0022,\u0022pax\u0022:12,\u0022price\u0022:55}]'),
-                      tryOf(p) { return p && this.tryRate ? Math.round(p * this.tryRate).toLocaleString('tr-TR') : null; } }">
+             x-data="{
+                 vehicleId: 1,
+                 roundTrip: false,
+                 tryRate: 57.41,
+                 discount: 5,
+                 vehicles: JSON.parse('[{\u0022id\u0022:1,\u0022name\u0022:\u0022Mercedes Vito VIP\u0022,\u0022pax\u0022:6,\u0022price\u0022:40,\u0022return_price\u0022:40},{\u0022id\u0022:2,\u0022name\u0022:\u0022Mercedes Sprinter VIP\u0022,\u0022pax\u0022:12,\u0022price\u0022:55,\u0022return_price\u0022:55}]'),
+                 get vehicle() { return this.vehicles.find(v => v.id === this.vehicleId) || null; },
+                 get outbound() { return this.vehicle?.price ?? null; },
+                 get returnLeg() { return this.roundTrip ? (this.vehicle?.return_price ?? this.vehicle?.price ?? null) : null; },
+                 priceOf(v) {
+                     if (!v.price) return null;
+                     if (!this.roundTrip) return v.price;
+                     return Math.round((v.price + (v.return_price ?? v.price)) * (1 - this.discount / 100));
+                 },
+                 get total() { return this.vehicle ? this.priceOf(this.vehicle) : null; },
+                 tryOf(p) { return p && this.tryRate ? Math.round(p * this.tryRate).toLocaleString('tr-TR') : null; },
+                 money(p) { return (p === null || p === undefined) ? '—' : '€' + Math.round(p); }
+             }">
         <h1 class="font-display text-4xl gold-gradient-text mb-10">Rezervasyon</h1>
 
         <div class="grid lg:grid-cols-3 gap-8 items-start">
             
             <form method="POST" action="/tr/book" class="lg:col-span-2 card p-6 sm:p-8 space-y-6">
-                <input type="hidden" name="_token" value="ZZMtR2HaYuqV3JycFMvFTDiS8RLs0idlPClcjY2E" autocomplete="off">                <input type="hidden" name="route_id" value="9">
+                <input type="hidden" name="_token" value="x38lJuRQw06G9kjqs2RW7jbwpdTbMCfDGIZDN68Y" autocomplete="off">                <input type="hidden" name="route_id" value="9">
                 <input type="hidden" name="vehicle_id" :value="vehicleId">
                 <input type="text" name="website" value="" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
 
@@ -340,8 +375,8 @@
                                     :class="vehicleId === v.id ? 'border-gold bg-gold/10' : 'border-white/10 hover:border-gold/40'">
                                 <div class="font-medium" x-text="v.name"></div>
                                 <div class="text-muted text-xs mt-1"><span x-text="v.pax"></span> kişi</div>
-                                <div class="text-gold font-bold mt-2" x-text="v.price ? '€' + Math.round(v.price) : '—'"></div>
-                                <div class="text-muted text-xs" x-show="tryOf(v.price)" x-text="'≈ ₺' + tryOf(v.price)"></div>
+                                <div class="text-gold font-bold mt-2" x-text="money(priceOf(v))"></div>
+                                <div class="text-muted text-xs" x-show="tryOf(priceOf(v))" x-text="'≈ ₺' + tryOf(priceOf(v))"></div>
                             </button>
                         </template>
                     </div>
@@ -363,6 +398,31 @@
                     <div class="sm:col-span-2">
                         <label class="block text-xs uppercase tracking-widest text-muted mb-2">Tarih &amp; Saat *</label>
                         <input type="text" name="pickup_datetime" value="" required class="input-dark js-datetime" placeholder="Seçiniz">
+                    </div>
+
+                    
+                    <div class="sm:col-span-2">
+                        <label class="flex items-start gap-3 rounded-lg border p-4 cursor-pointer transition"
+                               :class="roundTrip ? 'border-gold bg-gold/10' : 'border-white/10 hover:border-gold/40'">
+                            <input type="checkbox" name="is_round_trip" value="1" x-model="roundTrip" class="mt-0.5 accent-[#c9a24b]">
+                            <span>
+                                <span class="font-medium block">⇄ Gidiş-Dönüş Transfer</span>
+                                <span class="text-muted text-xs">
+                                    Dönüş transferinizi de şimdi ekleyin (Belek → Antalya Havalimanı (AYT)).
+                                                                            <b class="text-gold">%5 indirimli!</b>
+                                                                    </span>
+                            </span>
+                        </label>
+                    </div>
+                    <div class="sm:col-span-2 grid sm:grid-cols-2 gap-5" x-show="roundTrip" x-cloak>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-muted mb-2">Dönüş Tarihi &amp; Saati *</label>
+                            <input type="text" name="return_datetime" value="" class="input-dark js-datetime" placeholder="Seçiniz">
+                        </div>
+                        <div>
+                            <label class="block text-xs uppercase tracking-widest text-muted mb-2">Dönüş Uçuş No</label>
+                            <input type="text" name="return_flight_number" value="" placeholder="TK2411" class="input-dark">
+                        </div>
                     </div>
                     <div>
                         <label class="block text-xs uppercase tracking-widest text-muted mb-2">Yolcu Sayısı *</label>
@@ -411,19 +471,29 @@
                     <div>
                         <dt class="text-muted text-xs uppercase tracking-wide mb-1">Güzergah</dt>
                         <dd class="font-medium">Antalya Havalimanı (AYT) → Belek</dd>
+                        <dd class="font-medium mt-1" x-show="roundTrip" x-cloak>Belek → Antalya Havalimanı (AYT)</dd>
                                                     <dd class="text-muted text-xs mt-1">35 km · ~35 dk</dd>
                                             </div>
                     <div>
                         <dt class="text-muted text-xs uppercase tracking-wide mb-1">Araç</dt>
                         <dd class="font-medium" x-text="vehicles.find(v => v.id === vehicleId)?.name"></dd>
                     </div>
+                    <div class="pt-4 border-t border-gold/15 space-y-1" x-show="roundTrip" x-cloak>
+                        <div class="flex justify-between text-xs text-muted">
+                            <span>Gidiş</span><span x-text="money(outbound)"></span>
+                        </div>
+                        <div class="flex justify-between text-xs text-muted">
+                            <span>Dönüş</span><span x-text="money(returnLeg)"></span>
+                        </div>
+                        <div class="flex justify-between text-xs text-gold" x-show="discount > 0">
+                            <span>Gidiş-dönüş indirimi</span>
+                            <span x-text="'-' + discount + '%'"></span>
+                        </div>
+                    </div>
                     <div class="pt-4 border-t border-gold/15">
                         <dt class="text-muted text-xs uppercase tracking-wide mb-1">Toplam Fiyat</dt>
-                        <dd class="text-3xl font-bold gold-gradient-text"
-                            x-text="(() => { const p = vehicles.find(v => v.id === vehicleId)?.price; return p ? '€' + Math.round(p) : '—'; })()"></dd>
-                        <dd class="text-muted text-sm mt-1"
-                            x-show="tryOf(vehicles.find(v => v.id === vehicleId)?.price)"
-                            x-text="'≈ ₺' + tryOf(vehicles.find(v => v.id === vehicleId)?.price)"></dd>
+                        <dd class="text-3xl font-bold gold-gradient-text" x-text="money(total)"></dd>
+                        <dd class="text-muted text-sm mt-1" x-show="tryOf(total)" x-text="'≈ ₺' + tryOf(total)"></dd>
                     </div>
                 </dl>
             </aside>
